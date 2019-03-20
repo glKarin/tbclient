@@ -47,6 +47,8 @@ TBNetworkAccessManager::TBNetworkAccessManager(QObject *parent) :
 
 QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetworkRequest &request, QIODevice *outgoingData)
 {
+static const QVector<QString> _YoukuSpecialUrl(QVector<QString>() << "ups.youku.com");
+
     QNetworkRequest req(request);
     // set user-agent
     if (op == PostOperation){
@@ -66,6 +68,14 @@ QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetwor
     } else {
         req.setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
     }
+
+    QString _host = req.url().host();
+    if(_YoukuSpecialUrl.contains(_host))
+    {
+        req.setRawHeader("Referer", "http://v/youku.com");
+        req.setRawHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.101 Safari/537.36");
+    }
+
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
     return reply;
 }

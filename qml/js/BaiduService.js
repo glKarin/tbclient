@@ -87,6 +87,21 @@ var BaiduApi = {
     C_U_FOLLOW_SUG: HOST + "/c/u/follow/sug"
 }
 
+
+
+var NL_DBG_NONE = 0;
+var NL_DBG_REQ = 1;
+var NL_DBG_RESP = (1 << 1);
+var NL_DBG_HEADER = (1 << 2);
+var NL_DBG_QML = (1 << 3);
+var NL_DBG_ALL = ~0;
+
+var Verena = {
+	//_Dbg: NL_DBG_REQ | NL_DBG_QML,
+	_Dbg: NL_DBG_NONE,
+	_WapPassportUrl: "https://wappass.baidu.com/passport",
+};
+
 var BaiduRequest = function(action, method){
     this.action = action;
     this.method = method||"POST";
@@ -120,9 +135,12 @@ BaiduRequest.prototype.signForm = function(param){
         }
 
 BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
+	if(Verena._Dbg === NL_DBG_NONE)
             console.log("==============\n",
                         this.method,
                         this.action);
+						if(Verena._Dbg & NL_DBG_REQ)
+							console.log("[%1]: %2%3".arg(this.method).arg(this.action).arg(this.encodedParameters ? "?" + this.encodedParameters : ""));
             // onSuccess(obj)
             // onFailed(message, [obj]);
             var xhr = new XMLHttpRequest();
@@ -131,6 +149,8 @@ BaiduRequest.prototype.sendRequest = function(onSuccess, onFailed){
                             tbsettings.currentBearerName = utility.currentBearerName();
                         } else if (xhr.readyState === xhr.DONE){
                             if (xhr.status === 200){
+															if(Verena._Dbg & NL_DBG_RESP)
+																console.log(xhr.responseText);
                                 try {
                                     var obj = JSON.parse(xhr.responseText);
                                     if (obj.error_code !== "0"){

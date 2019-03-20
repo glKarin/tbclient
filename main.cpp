@@ -81,7 +81,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #ifdef Q_OS_S60V5
     app->setApplicationVersion("2.1.5");
 #else
-    app->setApplicationVersion(VER);
+    app->setApplicationVersion(VER _NL_VER _NL_PATCH);
 #endif
 
     // Install translator for qt

@@ -19,7 +19,8 @@ HEADERS += \
     src/scribblearea.h \
     src/flickcharm.h \
     src/qwebviewitem.h \
-    src/imageuploader.h
+    src/imageuploader.h \
+		src/nl_std.h
 
 SOURCES += main.cpp \
     src/utility.cpp \

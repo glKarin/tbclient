@@ -166,7 +166,7 @@ MyPage {
                 SelectionDialog {
                     id: clientTypeSelector;
                     titleText: qsTr("User agent");
-                    model: ["iPhone","Android"];
+										model: ["iPhone" /*,"Android"*/ ];
                     selectedIndex: tbsettings.clientType-1;
                     onAccepted: tbsettings.clientType = selectedIndex + 1;
                 }
@@ -186,6 +186,72 @@ MyPage {
                 height: 1;
                 color: constant.colorMarginLine;
             }
+
+						Column{
+							width: parent.width;
+							SettingsItem {
+								title: qsTr("Lock orientation");
+							}
+							ButtonRow {
+								anchors {
+									horizontalCenter: parent.horizontalCenter;
+								}
+								Button{
+									text: qsTr("Automitic");
+									checked: tbsettings.orientation == 0;
+									onClicked: {
+											tbsettings.orientation = 0;
+									}
+								}
+								Button{
+									text: qsTr("Portrait");
+									checked: tbsettings.orientation == 1;
+									onClicked: {
+											tbsettings.orientation = 1;
+									}
+								}
+								Button{
+									text: qsTr("Landscape");
+									checked: tbsettings.orientation == 2;
+									onClicked: {
+											tbsettings.orientation = 2;
+									}
+								}
+							}
+							Item { width: 1; height: constant.paddingLarge; }
+						}
+            SettingsItem {
+                title: qsTr("wap login directly");
+                Switch {
+                    anchors {
+                        right: parent.right; rightMargin: 18;
+                        verticalCenter: parent.verticalCenter;
+                    }
+                    checked: tbsettings.wapLoginDirectly;
+                    Component.onCompleted: {
+                        checkedChanged.connect(function(){tbsettings.wapLoginDirectly = checked})
+                    }
+                }
+            }
+            SettingsItem {
+                title: qsTr("wap login page show image");
+                Switch {
+                    anchors {
+                        right: parent.right; rightMargin: 18;
+                        verticalCenter: parent.verticalCenter;
+                    }
+                    checked: tbsettings.wapLoginPageShowImage;
+                    Component.onCompleted: {
+                        checkedChanged.connect(function(){tbsettings.wapLoginPageShowImage = checked})
+                    }
+                }
+            }
+            Rectangle {
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
+                height: 1;
+                color: constant.colorMarginLine;
+            }
+
             Item { width: 1; height: constant.paddingLarge; }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter;

@@ -1,4 +1,5 @@
 Qt.include("YoukuParser.js");
+Qt.include("YoukuParser_new.js");
 
 function linkActivated(link){
     var l = link.split(":");
@@ -26,11 +27,12 @@ function decodeLink(url){
     if (m) return enterForum(m);
 
     url = utility.fixUrl(url);
-    if (url.indexOf("youku.com") > 0){
+    if (0 && url.indexOf("youku.com") > 0){
         showMessage(qsTr("Loading video..."));
         query(url);
         return;
     }
 
+		if(!signalCenter._OpenStreamtypeDialog(url))
     openBrowser(url);
 }

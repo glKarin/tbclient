@@ -61,6 +61,13 @@ MyPage {
             font: constant.subTitleFont;
             color: constant.colorMid;
             anchors.horizontalCenter: parent.horizontalCenter;
+						text: "<a href='signalCenter._OpenUpdateDialog();'>%1</a>".arg(qsTr("About update"));
+            onLinkActivated: eval(link);
+        }
+        Text {
+            font: constant.subTitleFont;
+            color: constant.colorMid;
+            anchors.horizontalCenter: parent.horizontalCenter;
             text: "<a href=\"w\">%1</a>".arg(qsTr("Project homepage"));
             onLinkActivated: utility.openURLDefault("https://github.com/yeatse/tbclient");
         }

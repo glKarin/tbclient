@@ -3,6 +3,8 @@
 
 #include <QtDeclarative>
 
+#include "nl_std.h"
+
 class Utility : public QObject
 {
     Q_OBJECT
@@ -104,6 +106,10 @@ public:             // Other functions.
     Q_INVOKABLE QString emoticonText(const QString &name);
     // Return custom emoticon list
     Q_INVOKABLE QStringList customEmoticonList();
+		
+		Q_INVOKABLE QVariant GetCookie(const QString &url) const;
+		Q_INVOKABLE void Print_r(const QVariant &v) const;
+		Q_INVOKABLE QVariant GetPatchInfo(const QString &name = QString()) const;
 
 #ifdef Q_OS_HARMATTAN
 signals:

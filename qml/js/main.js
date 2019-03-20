@@ -982,3 +982,24 @@ function getGoodList(option, onSuccess, onFailed){
     req.signForm(param);
     req.sendRequest(s, onFailed);
 }
+
+
+
+function WapLogin(user, onSuccess, onFailed){
+	if(user)
+	{
+		tbsettings.currentUid = user.id;
+		DBHelper.storeAuthData(user.id, user.name, user.BDUSS, user.passwd, user.portrait);
+		__name = user.name;
+		__bduss = user.BDUSS;
+		__portrait = user.portrait;
+		BaiduConst.BDUSS = user.BDUSS;
+		signalCenter.clearLocalCache();
+		// Required after changing/adding an account
+		BaiduRequest.intercomm();
+		signalCenter.userChanged();
+		onSuccess();
+	}
+	else
+		onFailed("[%1]: %2!".arg("ERROR").arg(qsTr("User profile is null")));
+}
