@@ -4,7 +4,7 @@
 #define _NL_PATCH "1"
 #define _NL_RELEASE "20190320"
 #define _NL_DEV "karin"
-#define _NL_VER "harmattan"
+#define _NL_VERS "harmattan"
 #define _NL_CODE "FarAwayFromHome"
 #define _NL_EMAIL "beyondk2000@gmail.com"
 #define _NL_GITHUB "https://github.com/glKarin/tbclient"

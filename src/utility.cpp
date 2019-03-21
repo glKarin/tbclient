@@ -899,66 +899,66 @@ void Utility::captureCanceled(const QString &mode)
     disconnectSignals();
 }
 
+#endif
+
 
 
 QVariant Utility::GetCookie(const QString &url) const
 {
-	QVariant r;
-	QList<QNetworkCookie> cookies = TBNetworkCookieJar::GetInstance()->cookiesForUrl(QUrl(url));
-	if(cookies.count() > 0)
-	{
-		QVariantMap map;
-		Q_FOREACH(const QNetworkCookie &c, cookies)
-		{
-			// qDebug() << c.name() << c.value();
-			map.insert(c.name(), c.value());
-		}
-		r.setValue(map);
-	}
-	return r;
+    QVariant r;
+    QList<QNetworkCookie> cookies = TBNetworkCookieJar::GetInstance()->cookiesForUrl(QUrl(url));
+    if(cookies.count() > 0)
+    {
+        QVariantMap map;
+        Q_FOREACH(const QNetworkCookie &c, cookies)
+        {
+            // qDebug() << c.name() << c.value();
+            map.insert(c.name(), c.value());
+        }
+        r.setValue(map);
+    }
+    return r;
 }
 
 void Utility::Print_r(const QVariant &v) const
 {
-	qDebug() << v;
+    qDebug() << v;
 }
 
 QVariant Utility::GetPatchInfo(const QString &name) const
 {
-	QVariant r;
+    QVariant r;
 
-	if(name.isEmpty())
-	{
-		QVariantMap map;
+    if(name.isEmpty())
+    {
+        QVariantMap map;
 #define _NL_M_I(x) map.insert(#x, _NL_##x)
-		_NL_M_I(PATCH);
-		_NL_M_I(RELEASE);
-		_NL_M_I(DEV);
-		_NL_M_I(VER);
-		_NL_M_I(CODE);
-		_NL_M_I(EMAIL);
-		_NL_M_I(GITHUB);
-		_NL_M_I(PAN);
-		_NL_M_I(OPENREPOS);
+        _NL_M_I(PATCH);
+        _NL_M_I(RELEASE);
+        _NL_M_I(DEV);
+        _NL_M_I(VERS);
+        _NL_M_I(CODE);
+        _NL_M_I(EMAIL);
+        _NL_M_I(GITHUB);
+        _NL_M_I(PAN);
+        _NL_M_I(OPENREPOS);
 #undef _NL_M_I
-		r.setValue(map);
-	}
-	else
-	{
-		QString n = name.toUpper();
+        r.setValue(map);
+    }
+    else
+    {
+        QString n = name.toUpper();
 #define _NL_I(x) if(n == #x) { r.setValue(QString(_NL_##x)); }
-		_NL_I(PATCH)
-		else _NL_I(RELEASE)
-		else _NL_I(DEV)
-		else _NL_I(VER)
-		else _NL_I(CODE)
-		else _NL_I(EMAIL)
-		else _NL_I(GITHUB)
-		else _NL_I(PAN)
-		else _NL_I(OPENREPOS)
+        _NL_I(PATCH)
+        else _NL_I(RELEASE)
+        else _NL_I(DEV)
+        else _NL_I(VERS)
+        else _NL_I(CODE)
+        else _NL_I(EMAIL)
+        else _NL_I(GITHUB)
+        else _NL_I(PAN)
+        else _NL_I(OPENREPOS)
 #undef _NL_I
-	}
-	return r;
+    }
+    return r;
 }
-
-#endif
