@@ -59,7 +59,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Symbian specific
 #ifdef Q_OS_SYMBIAN
 #ifndef Q_OS_S60V5
+#ifndef _NL_SYMBIAN3_BUILD
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
+#else
+    QApplication::setAttribute(Qt::ApplicationAttribute(11));
+#endif
 #endif
     QScopedPointer<QApplication> app(new SymbianApplication(argc, argv));
 #else

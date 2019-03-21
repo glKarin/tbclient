@@ -15,7 +15,9 @@
 #include <apgtask.h>                //..
 #include <w32std.h>                 //..
 #include <mgfetch.h>                //for selecting picture
+#ifndef _NL_SYMBIAN3_BUILD
 #include <NewFileServiceClient.h>   //for camera
+#endif
 #include <AiwServiceHandler.h>      //..
 #include <AiwCommon.hrh>            //..
 #include <AiwGenericParam.hrh>      //..
@@ -321,10 +323,14 @@ void Utility::showNotification(const QString &title, const QString &message)
     note->ShowNoteL(EAknGlobalInformationNote, sMessage);
     CleanupStack::PopAndDestroy(note);
 #elif defined(Q_OS_SYMBIAN)
+#ifndef _NL_SYMBIAN3_BUILD
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
     TUid uid = TUid::Uid(0x2006622A);
     TRAP_IGNORE(CAknDiscreetPopup::ShowGlobalPopupL(sTitle, sMessage, KAknsIIDNone, KNullDesC, 0, 0, KAknDiscreetPopupDurationLong, 0, NULL, uid));
+#else
+    qDebug() << "showNotification:" << title << message;
+#endif
 #elif defined(Q_OS_HARMATTAN)
     clearNotifications();
     MNotification notification(NOTIFICATION_EVENTTYPE, title, message);
@@ -787,6 +793,9 @@ void Utility::LaunchL(int id, const QString& param)
 
 QString Utility::CaptureImage()
 {
+#ifdef _NL_SYMBIAN3_BUILD
+    return QString::null;
+#else
     CNewFileServiceClient* fileClient = NewFileServiceFactory::NewClientL();
     CleanupStack::PushL(fileClient);
 
@@ -828,6 +837,7 @@ QString Utility::CaptureImage()
     CleanupStack::PopAndDestroy(3);
 
     return ret;
+#endif
 }
 QString Utility::LaunchLibrary()
 {

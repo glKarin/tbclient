@@ -80,7 +80,7 @@ DynamicCommonDialog {
 									text: model.name;
 									color: "white";
 									font.bold: true;
-									font.pixelSize: constant.fontXXLarge;
+                                    font.pixelSize: constant.fontLarge;
 								}
 								Rectangle{
 									id: line;

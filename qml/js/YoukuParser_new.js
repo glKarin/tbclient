@@ -22,9 +22,7 @@ var Youku2Parser = function()
 						"mp4hd3v2",
 							"hd3",
 							"hd3v2",
-	];
-
-	var NL_DBG = 0;
+    ];
 
 	// AJAX
 	function GetJSONP(url, success, fail)
