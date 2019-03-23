@@ -15,9 +15,7 @@
 #include <apgtask.h>                //..
 #include <w32std.h>                 //..
 #include <mgfetch.h>                //for selecting picture
-#ifndef _NL_SYMBIAN3_BUILD
 #include <NewFileServiceClient.h>   //for camera
-#endif
 #include <AiwServiceHandler.h>      //..
 #include <AiwCommon.hrh>            //..
 #include <AiwGenericParam.hrh>      //..
@@ -323,14 +321,10 @@ void Utility::showNotification(const QString &title, const QString &message)
     note->ShowNoteL(EAknGlobalInformationNote, sMessage);
     CleanupStack::PopAndDestroy(note);
 #elif defined(Q_OS_SYMBIAN)
-#ifndef _NL_SYMBIAN3_BUILD
     TPtrC16 sTitle(static_cast<const TUint16 *>(title.utf16()), title.length());
     TPtrC16 sMessage(static_cast<const TUint16 *>(message.utf16()), message.length());
     TUid uid = TUid::Uid(0x2006622A);
     TRAP_IGNORE(CAknDiscreetPopup::ShowGlobalPopupL(sTitle, sMessage, KAknsIIDNone, KNullDesC, 0, 0, KAknDiscreetPopupDurationLong, 0, NULL, uid));
-#else
-    qDebug() << "showNotification:" << title << message;
-#endif
 #elif defined(Q_OS_HARMATTAN)
     clearNotifications();
     MNotification notification(NOTIFICATION_EVENTTYPE, title, message);
@@ -793,9 +787,6 @@ void Utility::LaunchL(int id, const QString& param)
 
 QString Utility::CaptureImage()
 {
-#ifdef _NL_SYMBIAN3_BUILD
-    return QString::null;
-#else
     CNewFileServiceClient* fileClient = NewFileServiceFactory::NewClientL();
     CleanupStack::PushL(fileClient);
 
@@ -837,7 +828,6 @@ QString Utility::CaptureImage()
     CleanupStack::PopAndDestroy(3);
 
     return ret;
-#endif
 }
 QString Utility::LaunchLibrary()
 {
@@ -915,60 +905,61 @@ void Utility::captureCanceled(const QString &mode)
 
 QVariant Utility::GetCookie(const QString &url) const
 {
-    QVariant r;
-    QList<QNetworkCookie> cookies = TBNetworkCookieJar::GetInstance()->cookiesForUrl(QUrl(url));
-    if(cookies.count() > 0)
-    {
-        QVariantMap map;
-        Q_FOREACH(const QNetworkCookie &c, cookies)
-        {
-            // qDebug() << c.name() << c.value();
-            map.insert(c.name(), c.value());
-        }
-        r.setValue(map);
-    }
-    return r;
+	QVariant r;
+	QList<QNetworkCookie> cookies = TBNetworkCookieJar::GetInstance()->cookiesForUrl(QUrl(url));
+	if(cookies.count() > 0)
+	{
+		QVariantMap map;
+		Q_FOREACH(const QNetworkCookie &c, cookies)
+		{
+			// qDebug() << c.name() << c.value();
+			map.insert(c.name(), c.value());
+		}
+		r.setValue(map);
+	}
+	return r;
 }
 
 void Utility::Print_r(const QVariant &v) const
 {
-    qDebug() << v;
+	qDebug() << v;
 }
 
 QVariant Utility::GetPatchInfo(const QString &name) const
 {
-    QVariant r;
+	QVariant r;
 
-    if(name.isEmpty())
-    {
-        QVariantMap map;
+	if(name.isEmpty())
+	{
+		QVariantMap map;
 #define _NL_M_I(x) map.insert(#x, _NL_##x)
-        _NL_M_I(PATCH);
-        _NL_M_I(RELEASE);
-        _NL_M_I(DEV);
-        _NL_M_I(VERS);
-        _NL_M_I(CODE);
-        _NL_M_I(EMAIL);
-        _NL_M_I(GITHUB);
-        _NL_M_I(PAN);
-        _NL_M_I(OPENREPOS);
+		_NL_M_I(PATCH);
+		_NL_M_I(RELEASE);
+		_NL_M_I(DEV);
+		_NL_M_I(VERS);
+		_NL_M_I(CODE);
+		_NL_M_I(EMAIL);
+		_NL_M_I(GITHUB);
+		_NL_M_I(PAN);
+		_NL_M_I(OPENREPOS);
 #undef _NL_M_I
-        r.setValue(map);
-    }
-    else
-    {
-        QString n = name.toUpper();
+		r.setValue(map);
+	}
+	else
+	{
+		QString n = name.toUpper();
 #define _NL_I(x) if(n == #x) { r.setValue(QString(_NL_##x)); }
-        _NL_I(PATCH)
-        else _NL_I(RELEASE)
-        else _NL_I(DEV)
-        else _NL_I(VERS)
-        else _NL_I(CODE)
-        else _NL_I(EMAIL)
-        else _NL_I(GITHUB)
-        else _NL_I(PAN)
-        else _NL_I(OPENREPOS)
+		_NL_I(PATCH)
+		else _NL_I(RELEASE)
+		else _NL_I(DEV)
+		else _NL_I(VERS)
+		else _NL_I(CODE)
+		else _NL_I(EMAIL)
+		else _NL_I(GITHUB)
+		else _NL_I(PAN)
+		else _NL_I(OPENREPOS)
 #undef _NL_I
-    }
-    return r;
+	}
+	return r;
 }
+

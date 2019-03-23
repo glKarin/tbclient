@@ -125,7 +125,7 @@ QtObject {
 
     // Pages
     function needAuthorization(forceLogin){
-            if(tbsettings.wapLoginDirectly) { _PushWapLoginPage(forceLogin); return; }
+			if(tbsettings.wapLoginDirectly) { _PushWapLoginPage(forceLogin); return; }
 
         if(pageStack.currentPage.objectName !== "LoginPage"){
             var prop = { forceLogin: forceLogin||false }
@@ -213,12 +213,11 @@ QtObject {
     property variant _streamtypeDialogComp: null;
 		property variant _textsDialogComp: null;
 
-		function _OpenStreamtypeDialog(url)
+		function _OpenStreamtypeDialog(url_or_id, source)
 		{
         if (!_streamtypeDialogComp){ _streamtypeDialogComp = Qt.createComponent("Dialog/StreamtypeDialog.qml"); }
-        //var prop = { };
         var diag = _streamtypeDialogComp.createObject(pageStack.currentPage);
-				if(diag._ParseUrl(url))
+				if(diag._Load(url_or_id, source))
 				{
 					showMessage(qsTr("Loading video..."));
 					diag.open();
@@ -227,12 +226,13 @@ QtObject {
 				return false;
     }
 
-		function _OpenTextDialog(title, data)
+		function _OpenTextDialog(title, data, f)
 		{
         if (!_textsDialogComp){ _textsDialogComp = Qt.createComponent("Dialog/TextsDialog.qml"); }
 				var props = {
 					titleText: title,
 					model: data || [],
+					sBottomTitle: f || "",
 				};
         var diag = _textsDialogComp.createObject(pageStack.currentPage, props);
 				if(data)
@@ -262,19 +262,10 @@ QtObject {
 					horizontalAlignment: Text.AlignHCenter,
 				},
 				{
-					text: "1, " + qsTr("Fixed user login with Wap-Passport."),
+					text: "1, " + qsTr("Support Acfun and Bilibili video source."),
 				},
 				{
-					text: "2, " + qsTr("Fixed home page."),
-				},
-				{
-					text: "3, " + qsTr("Fixed Youku video playing."),
-				},
-				{
-					text: "4, " + qsTr("Add page orientation setting."),
-				},
-				{
-					text: "5, " + qsTr("Disable Android User-Agent."),
+					text: "2, " + qsTr("Add video page and simple player(for playing Bilibili videos)."),
 				},
 
 				{
@@ -290,21 +281,12 @@ QtObject {
 					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2, <a href=\"utility.openURLDefault('%1');\">BaiduPan: %2</a>".arg(p["PAN"].split(" ")[0]).arg(p["PAN"].split(" ")[1]),
 					pixelSize: constant.fontLarge,
 				},
-
-				{
-					text: qsTr("About author") + ": " + _GetAuthor()["B"],
-					bold: true,
-					pixelSize: constant.fontXLarge,
-					horizontalAlignment: Text.AlignHCenter,
-				},
-				{
-					text: "<a href=\"close(); signalCenter.viewProfile('%1');\">%2</a>".arg(_GetAuthor()["A"]).arg(qsTr("Her profile"))
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"close(); signalCenter.enterForum('%1');\">%2</a>".arg(_GetAuthor()["B"]).arg(qsTr("Her tieba"))
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"close(); signalCenter._FollowHer('%1');\">%2</a>".arg(_GetAuthor()["A"]).arg(qsTr("Follow her")),
-					pixelSize: constant.fontLarge,
-				},
 			];
-			_OpenTextDialog(qsTr("Update"), data);
+			var f = qsTr("About author") + ": " + _GetAuthor()["B"] + "&nbsp;-&nbsp;"
+			+ "<a href=\"close(); signalCenter.viewProfile('%1');\">%2</a>".arg(_GetAuthor()["A"]).arg(qsTr("Her profile"))
+			+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"close(); signalCenter.enterForum('%1');\">%2</a>".arg(_GetAuthor()["B"]).arg(qsTr("Her tieba"))
+			+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"close(); signalCenter._FollowHer('%1');\">%2</a>".arg(_GetAuthor()["A"]).arg(qsTr("Follow her"));
+			_OpenTextDialog(qsTr("Update"), data, f);
 		}
 
 
@@ -342,4 +324,13 @@ QtObject {
         Script.getUserProfile(prop, s, f);
     }
 
+		function _OpenPlayer(url, title)
+		{
+			var prop = { 
+				videosource: url, 
+				title: title || "",
+			};
+			var p = pageStack.push(Qt.resolvedUrl("PlayerPage.qml"), prop, true);
+			p._Load();
+		}
 }

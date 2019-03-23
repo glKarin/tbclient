@@ -31,6 +31,10 @@
 #include "applicationactivelistener.h"
 #endif
 
+#ifdef _NL_MULTIMEDIA_EXTENSION
+#include "qtm/qdeclarativevideo_p.h"
+#endif
+
 #ifdef Q_OS_SYMBIAN
 #include <QSymbianEvent>
 #include <w32std.h>
@@ -59,11 +63,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Symbian specific
 #ifdef Q_OS_SYMBIAN
 #ifndef Q_OS_S60V5
-#ifndef _NL_SYMBIAN3_BUILD
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
-#else
-    QApplication::setAttribute(Qt::ApplicationAttribute(11));
-#endif
 #endif
     QScopedPointer<QApplication> app(new SymbianApplication(argc, argv));
 #else
@@ -109,6 +109,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<QWebViewItem>("com.yeatse.tbclient", 1, 0, "WebView");
 #endif
     qmlRegisterType<ImageUploader>("com.yeatse.tbclient", 1, 0, "ImageUploader");
+
+#ifdef _NL_MULTIMEDIA_EXTENSION
+    qmlRegisterType<QDeclarativeVideo>("com.yeatse.tbclient.extensions", 1, 0, "YeatseVideo");
+#endif
 
 #ifdef QVIBRA
     qmlRegisterType<QVibra>("com.yeatse.tbclient", 1, 0, "Vibra");

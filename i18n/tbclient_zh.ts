@@ -634,9 +634,14 @@
         <translation>设置中心</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/MorePage.qml" line="20"/>
+        <location filename="../qml/harmattan/MorePage.qml" line="23"/>
         <source>About</source>
         <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/MorePage.qml" line="21"/>
+        <source>Video</source>
+        <translation type="unfinished">视频</translation>
     </message>
 </context>
 <context>
@@ -676,6 +681,15 @@
         <location filename="../qml/harmattan/Dialog/PageJumper.qml" line="11"/>
         <source>Cancel</source>
         <translation>取消</translation>
+    </message>
+</context>
+<context>
+    <name>PlayerPage</name>
+    <message>
+        <location filename="../qml/harmattan/PlayerPage.qml" line="210"/>
+        <location filename="../qml/harmattan/PlayerPage.qml" line="220"/>
+        <source>Can not support seek for this video</source>
+        <translation type="unfinished">不支持视频流定位</translation>
     </message>
 </context>
 <context>
@@ -1211,7 +1225,7 @@
 <context>
     <name>SignalCenter</name>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="223"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="222"/>
         <source>Loading video...</source>
         <translation type="unfinished">正在获取视频源地址...</translation>
     </message>
@@ -1222,76 +1236,61 @@
     </message>
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="265"/>
-        <source>Fixed user login with Wap-Passport.</source>
-        <translation type="unfinished">使用Wap登录通道修复用户登录</translation>
+        <source>Support Acfun and Bilibili video source.</source>
+        <translation type="unfinished">新增Acfun和Bilibili视频源支持</translation>
     </message>
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="268"/>
-        <source>Fixed home page.</source>
-        <translation type="unfinished">修复主页的推荐页面</translation>
+        <source>Add video page and simple player(for playing Bilibili videos).</source>
+        <translation type="unfinished">新增视频页面, Bilibili视频必须使用内置简易播放器播放</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="271"/>
-        <source>Fixed Youku video playing.</source>
-        <translation type="unfinished">修复优酷视频的播放</translation>
-    </message>
-    <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="274"/>
-        <source>Add page orientation setting.</source>
-        <translation type="unfinished">新增页面方向设置</translation>
-    </message>
-    <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="277"/>
-        <source>Disable Android User-Agent.</source>
-        <translation type="unfinished">禁用安卓UA</translation>
-    </message>
-    <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="281"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="272"/>
         <source>Email</source>
         <translation type="unfinished">邮箱</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="285"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="276"/>
         <source>Source</source>
         <translation type="unfinished">源码</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="289"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="280"/>
         <source>Download</source>
         <translation type="unfinished">下载</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="295"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="285"/>
         <source>About author</source>
         <translation type="unfinished">关于原作者</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="301"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="286"/>
         <source>Her profile</source>
         <translation type="unfinished">她的主页</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="302"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="287"/>
         <source>Her tieba</source>
         <translation type="unfinished">她的贴吧</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="303"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="288"/>
         <source>Follow her</source>
         <translation type="unfinished">关注她</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="307"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="289"/>
         <source>Update</source>
         <translation type="unfinished">更新</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="334"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="316"/>
         <source>You have been her fans.</source>
         <translation type="unfinished">你已经是她的粉丝了</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="339"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="321"/>
         <source>Follow her success</source>
         <translation type="unfinished">关注成功</translation>
     </message>
@@ -1323,21 +1322,34 @@
     </message>
 </context>
 <context>
-    <name>StreamtypeDialog</name>
+    <name>Streamtype</name>
     <message>
-        <location filename="../qml/harmattan/Dialog/StreamtypeDialog.qml" line="9"/>
-        <source>Stream types</source>
-        <translation type="unfinished">视频流</translation>
-    </message>
-    <message>
-        <location filename="../qml/harmattan/Dialog/StreamtypeDialog.qml" line="30"/>
+        <location filename="../qml/harmattan/Component/Streamtype.qml" line="48"/>
         <source>Playing video</source>
         <translation type="unfinished">正在播放视频</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/Dialog/StreamtypeDialog.qml" line="47"/>
+        <location filename="../qml/harmattan/Component/Streamtype.qml" line="64"/>
         <source>Copy video url to clipboard</source>
         <translation type="unfinished">复制视频地址到粘贴板</translation>
+    </message>
+</context>
+<context>
+    <name>StreamtypeDialog</name>
+    <message>
+        <location filename="../qml/harmattan/Dialog/StreamtypeDialog.qml" line="10"/>
+        <source>Stream types</source>
+        <translation type="unfinished">视频流</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/Dialog/StreamtypeDialog.qml" line="46"/>
+        <source>Sort asc</source>
+        <translation type="unfinished">正序排列</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/Dialog/StreamtypeDialog.qml" line="53"/>
+        <source>Sort desc</source>
+        <translation type="unfinished">降序排列</translation>
     </message>
 </context>
 <context>
@@ -1688,6 +1700,73 @@
         <location filename="../qml/harmattan/Dialog/VCodeDialog.qml" line="61"/>
         <source>Input verify code</source>
         <translation>输入验证码</translation>
+    </message>
+</context>
+<context>
+    <name>VideoPage</name>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="11"/>
+        <source>Video</source>
+        <translation type="unfinished">视频</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="22"/>
+        <source>Sort asc</source>
+        <translation type="unfinished">正序排列</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="28"/>
+        <source>Sort desc</source>
+        <translation type="unfinished">降序排列</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="41"/>
+        <source>Url</source>
+        <translation type="unfinished">链接</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="45"/>
+        <source>Youku</source>
+        <translation type="unfinished">优酷</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="49"/>
+        <source>Acfun</source>
+        <translation type="unfinished">爱稀饭</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="53"/>
+        <source>Bilibili</source>
+        <translation type="unfinished">哔哩哔哩</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="106"/>
+        <source>Please input a video ID or url</source>
+        <translation type="unfinished">请输入视频地址或ID</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="125"/>
+        <source>Please input video ID or url</source>
+        <translation type="unfinished">请输入视频ID或链接</translation>
+    </message>
+</context>
+<context>
+    <name>VideoParser</name>
+    <message>
+        <location filename="../qml/js/VideoParser.js" line="68"/>
+        <location filename="../qml/js/VideoParser.js" line="144"/>
+        <source>Source is not supported</source>
+        <translation type="unfinished">不支持的视频源</translation>
+    </message>
+    <message>
+        <location filename="../qml/js/VideoParser.js" line="117"/>
+        <source>Url is not supported</source>
+        <translation type="unfinished">不支持的视频地址</translation>
+    </message>
+    <message>
+        <location filename="../qml/js/VideoParser.js" line="111"/>
+        <source>Url is invalid</source>
+        <translation type="unfinished">无效的视频地址</translation>
     </message>
 </context>
 <context>

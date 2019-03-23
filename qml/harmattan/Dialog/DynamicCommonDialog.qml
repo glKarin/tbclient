@@ -6,6 +6,11 @@ Dialog {
 
 		objectName: "DynamicCommonDialog";
     property string titleText: "";
+		property bool bAutoDestroy: true;
+		property alias tools: btns.children;
+
+		property int __iCompUsed: header.height + footer.height + constant.paddingXLarge * 2;
+		property int _iContentHeight: Math.max(visualParent ? visualParent.height - __iCompUsed : (pageStack.currentPage ? pageStack.currentPage.height - __iCompUsed : 240), 0);
 
     property Style platformStyle: SelectionDialogStyle {}
 
@@ -13,15 +18,20 @@ Dialog {
     property alias style: genericDialog.platformStyle
 
     //private
+    property int __buttonTopMargin: 38
+    property int __buttonsColumnSpacing: 16
     property bool __drawFooterLine: false
 
     property bool __isClosing: false;
-    onStatusChanged: {
+		onStatusChanged: {
+			if(genericDialog.bAutoDestroy)
+			{
         if (status == DialogStatus.Closing){
             __isClosing = true;
         } else if (status == DialogStatus.Closed && __isClosing){
             genericDialog.destroy(250);
-        }
+					}
+				}
     }
 
     title: Item {
@@ -120,11 +130,23 @@ Dialog {
                  anchors.left: parent.left
                  anchors.right: parent.right
                  anchors.top: parent.top
-                 height: genericDialog.__drawFooterLine ? 1 : 0
+                 height: genericDialog.__drawFooterLine && btns.children.length > 0 ? 1 : 0
 
                  color: "#4D4D4D"
              }
          }
+
+				 Item {
+					 id: btns;
+					 anchors.top: lineWrapper.bottom;
+					 anchors.horizontalCenter: parent.horizontalCenter
+					 anchors.topMargin: __buttonTopMargin
+					 //spacing: __buttonsColumnSpacing
+
+					 width: childrenRect.width;
+					 height: childrenRect.height;
+					 clip: true;
+				 }
 
          //ugly hack to assure, that we're always evaluating the correct height
          Item {id: dummy; anchors.fill:  parent}

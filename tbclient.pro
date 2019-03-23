@@ -32,6 +32,7 @@ SOURCES += main.cpp \
     src/flickcharm.cpp \
     src/qwebviewitem.cpp \
     src/imageuploader.cpp \
+		src/nl_std.cpp \
 #    qml/tbclient/*.qml \
 #    qml/tbclient/Browser/*.qml \
 #    qml/tbclient/Component/*.qml \
@@ -72,7 +73,22 @@ simulator {
     DEPLOYMENTFOLDERS += folder_symbian3 folder_symbian1 folder_harmattan
 }
 
+MOC_DIR = .moc
+OBJECTS_DIR = .obj
+
 contains(MEEGO_EDITION,harmattan){
+INCLUDEPATH += qtm
+HEADERS += \
+qtm/qdeclarativemediabase_p.h \
+qtm/qdeclarativevideo_p.h \
+qtm/qdeclarativemediametadata_p.h \
+qtm/qpaintervideosurface_p.h
+
+SOURCES += \
+qtm/qdeclarativemediabase.cpp \
+qtm/qdeclarativevideo.cpp \
+qtm/qpaintervideosurface.cpp
+
     DEFINES += Q_OS_HARMATTAN
     CONFIG += qdeclarative-boostable
     CONFIG += videosuiteinterface-maemo-meegotouch  #video suite

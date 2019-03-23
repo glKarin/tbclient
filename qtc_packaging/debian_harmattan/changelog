@@ -1,3 +1,10 @@
+tbclient (2.1.5harmattan3) unstable; urgency=low
+
+  * Support Acfun and Bilibili video source.
+  * Add video page and simple player(for playing Bilibili videos).
+
+ -- Karin <beyondk2000@gmail.com>  Sat, 23 Mar 2019 11:40:26 +0800
+
 tbclient (2.1.5harmattan1) unstable; urgency=low
 
   * Fixed user login with Wap-Passport.

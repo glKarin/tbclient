@@ -1,5 +1,7 @@
 var Youku2Parser = function()
 {
+	this.PATTERN = /^https?:\/\/v.youku.com\/v_show\/id_([0-9a-zA-Z]+)(_.*)?\.html/;
+
 	var CCODE = "0521";
 	var CLIENT_IP = "192.168.1.1";
 	var CKEY = "DIl58SLFxFNndSV1GFNnMQVYkx1PP5tKe1siZu/86PR1u/Wh1Ptd+WOZsHHWxysSfAOhNJpdVWsdVJNsfJ8Sxd8WKVvNfAS8aS8fAOzYARzPyPc3JvtnPHjTdKfESTdnuTW6ZPvk2pNDh4uFzotgdMEFkzQ5wZVXl2Pf1/Y6hLK0OnCNxBj3+nb0v72gZ6b0td+WOZsHHWxysSo/0y9D2K42SaB8Y/+aD2K42SaB8Y/+ahU+WOZsHcrxysooUeND";
@@ -22,7 +24,7 @@ var Youku2Parser = function()
 						"mp4hd3v2",
 							"hd3",
 							"hd3v2",
-    ];
+	];
 
 	// AJAX
 	function GetJSONP(url, success, fail)
@@ -178,7 +180,13 @@ var Youku2Parser = function()
 		var make_model_func = function(obj){
 			if(obj.data){
 				if(Array.isArray(obj.data.stream)){
-					obj.data.stream.forEach(function(element){
+					var stream = obj.data.stream;
+					var stmp = [];
+					stream.forEach(function(element){
+						stmp.push(element.stream_type);
+					});
+					var pft = SortStreamtypes(stmp);
+					stream.forEach(function(element, index){
 						var type = element.stream_type;
 						var arr = [];
 						if(Array.isArray(element.segs)){
@@ -196,6 +204,7 @@ var Youku2Parser = function()
 						}
 						var item = {
 							name: type,
+							index: pft.indexOf(type),
 							size: element.size,
 							duration: element.milliseconds_video,
 							part: arr
@@ -249,12 +258,10 @@ var Youku2Parser = function()
 
 	this.GetVideoIdFromUrl = function(url)
 	{
-		var pattern = /^https?:\/\/v.youku.com\/v_show\/id_([0-9a-zA-Z]+)(_.*)?\.html/;
-
-		if (!url.match(pattern)) {
+		if (!url.match(this.PATTERN)) {
 			return false;
 		}
-		var videoId = url.match(pattern)[1];
+		var videoId = url.match(this.PATTERN)[1];
 		return videoId;
 	}
 

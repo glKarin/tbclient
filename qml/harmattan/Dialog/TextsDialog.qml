@@ -8,11 +8,12 @@ DynamicCommonDialog {
 		objectName: "TextsDialog";
 
 		property variant model: [];
+		property variant sBottomTitle: "";
 
 		content: Item {
 			id: contentField;
 			width: root.width;
-			height: width * 1.2;
+			height: root._iContentHeight;
 			Flickable{
 				id: flickable;
 				anchors.fill: parent;
@@ -50,4 +51,23 @@ DynamicCommonDialog {
 
 		}
 
-}
+		__drawFooterLine: sBottomTitle !== "";
+		tools: [
+			Text{
+				width: root.width;
+				height: constant.graphicSizeLarge;
+				horizontalAlignment: Text.AlignHCenter;
+				verticalAlignment: Text.AlignVCenter;
+				text: root.sBottomTitle;
+				color: "white";
+				font.bold: true;
+				font.pixelSize: constant.fontLarge;
+				wrapMode: Text.WordWrap;
+				elide: Text.ElideRight;
+				maximumLineCount: 2;
+				onLinkActivated: {
+					if(link !== "") eval(link);
+				}
+			}
+		]
+	}
