@@ -123,7 +123,7 @@ var AcfunParser = function(){
 		{
 			var e = obj.videos[i];
 			arr.push({
-				sourceId: e.sourceId.toString(),
+				sourceId: (e.videoId || e.sourceId).toString(),
 				title: e.title,
 			});
 		}

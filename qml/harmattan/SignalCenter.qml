@@ -265,6 +265,9 @@ QtObject {
 					text: "  * " + qsTr("Internal player supports to set request headers for playing Bilibili video."),
 				},
 				{
+					text: "  * " + qsTr("Fixed Acfun video part source ID is wrong."),
+				},
+				{
 					text: "  * " + qsTr("Fixed 'My post' and 'User post' page, 'My post' page supports to get thread only."),
 				},
 				{

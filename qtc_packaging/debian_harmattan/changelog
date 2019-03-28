@@ -1,6 +1,7 @@
-tbclient (2.1.5harmattan5) unstable; urgency=low
+tbclient (2.1.5harmattan6) unstable; urgency=low
 
   * Internal player supports to set request headers for playing Bilibili video.
+  * Fixed Acfun video part source ID is wrong.
   * Fixed 'My post' and 'User post' page, 'My post' page supports to get thread only.
   * Get user name when user login with wap passport.
 

@@ -1251,61 +1251,66 @@
     </message>
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="268"/>
+        <source>Fixed Acfun video part source ID is wrong.</source>
+        <translation type="unfinished">修改Acfun稿件内视频ID错误</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="271"/>
         <source>Fixed &apos;My post&apos; and &apos;User post&apos; page, &apos;My post&apos; page supports to get thread only.</source>
         <translation type="unfinished">修复&apos;发过的帖子&apos;页面, &apos;我的帖子&apos;增加只看主题帖选项</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="271"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="274"/>
         <source>Get user name when user login with wap passport.</source>
         <translation type="unfinished">通过Wap通道登录后, 获取用户名</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="275"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="278"/>
         <source>Email</source>
         <translation type="unfinished">邮箱</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="279"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="282"/>
         <source>Source</source>
         <translation type="unfinished">源码</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="283"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="286"/>
         <source>Download</source>
         <translation type="unfinished">下载</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="288"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="291"/>
         <source>About author</source>
         <translation type="unfinished">原作者</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="289"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="292"/>
         <source>Her profile</source>
         <translation type="unfinished">她的主页</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="290"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="293"/>
         <source>Her tieba</source>
         <translation type="unfinished">她的贴吧</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="291"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="294"/>
         <source>Follow her</source>
         <translation type="unfinished">关注她</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="292"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="295"/>
         <source>Update</source>
         <translation type="unfinished">更新</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="319"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="322"/>
         <source>You have been her fans.</source>
         <translation type="unfinished">你已经是她的粉丝了</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="324"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="327"/>
         <source>Follow her success</source>
         <translation type="unfinished">关注成功</translation>
     </message>
@@ -1860,14 +1865,6 @@
         <location filename="../src/qwebviewitem.cpp" line="62"/>
         <source>The script on this page appears to have a problem. Do you want to stop the script?</source>
         <translation>当前页面的脚本似乎出现了问题，需要停止运行吗？</translation>
-    </message>
-</context>
-<context>
-    <name>BaiduParser</name>
-    <message>
-        <location filename="../qml/js/BaiduParser.js" line="219"/>
-        <source>Click to watch video</source>
-        <translation>点击查看视频</translation>
     </message>
 </context>
 </TS>
