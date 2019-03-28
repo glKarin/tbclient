@@ -20,7 +20,7 @@ var AcfunParser = function(){
 		if(obj.hasOwnProperty("errorid"))
 		{
 			if(obj.errorid !== 0)
-				return "[ERROR]: %1 -> %2".arg(obj.errorid).arg(obj.errordesc);
+				return AcfunParser.prototype.ResponseError(obj.errorid, obj.errordesc);
 		}
 		return false;
 	}
@@ -152,7 +152,7 @@ var AcfunParser = function(){
 		var ajax_suc_func = function(text, data){
 			var obj = JSON.parse(text),
 			if(obj.sourceType !== "zhuzhan")
-				fail("[%1]: %2 -> %3".arg("ERROR").arg("Content source is not from zhuzhan").arg(data.index));
+				fail(AcfunParser.prototype.ResponseError("Content source is not from zhuzhan", data.index));
 			else
 			{
 				var sourceId = obj.sourceId.toString();
@@ -164,9 +164,7 @@ var AcfunParser = function(){
 		};
 		var ajax_fail_func = function(code, text)
 		{
-			var msg = "[Error]: Network response -> " + code;
-			if(text)
-				msg += ", text -> " + text;
+			var msg = AcfunParser.prototype.ResponseError(code, text);
 			fail(msg);
 		};
 		var get_cid_func = function(text){

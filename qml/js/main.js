@@ -639,6 +639,8 @@ function unfavforum(option, onSuccess, onFailed){
 }
 
 function getMyPost(option, onSuccess, onFailed){
+	GetUserPost(option, onSuccess, onFailed); return;
+
     var isMe = option.user_id === tbsettings.currentUid;
     var req = new BaiduRequest(isMe ? BaiduApi.C_U_FEED_MYPOST
                                     : BaiduApi.C_U_FEED_OTHERPOST);
@@ -1002,4 +1004,73 @@ function WapLogin(user, onSuccess, onFailed){
 	}
 	else
 		onFailed("[%1]: %2!".arg("ERROR").arg(qsTr("User profile is null")));
+}
+
+function GetUserPost(option, onSuccess, onFailed){
+    var isMe = option.user_id === tbsettings.currentUid;
+    var req = new BaiduRequest(Verena._C_U_FEED_USERPOST);
+    var param = {
+			pn: option.pn,
+			need_content: 1,
+			thread_type: 0,
+		};
+    if (isMe) param.uid = tbsettings.currentUid;
+    else param.uid = option.user_id;
+
+		if(option.thread_only && isMe)
+				param.is_thread = 1;
+
+    req.signForm(param);
+    var s = function(obj){
+        if (obj.hide_post === "1"){
+            onFailed("hide");
+        } else {
+            var page = option.page;
+						var post_list = obj.post_list || [];
+						page.hasMore = post_list.length > 0;
+						BaiduParser.LoadUserPost(option, post_list);
+						if(post_list.length === 0)
+							onFailed(qsTr("No more contents"));
+						else
+						{
+							page.currentPage = option.pn;
+							onSuccess();
+						}
+        }
+    }
+    req.sendRequest(s, onFailed);
+}
+
+function GetUserProfileCE(suc_func, fail_func)
+{
+    var req = new BaiduRequest(Verena.GET_USER_PROFILE_CE);
+    var s = function(obj){
+        if(obj.code == 0)
+					suc_func(obj.data);
+				// username: data.username
+				else
+					fail_func(obj.message)
+		};
+		req.sendRequest(s, fail_func);
+}
+
+function GetUserProfile(suc_func, fail_func)
+{
+    var req = new BaiduRequest(Verena.GET_USER_PROFILE);
+    var s = function(obj){
+        if(obj.errno == 0 && typeof(obj.data) === "object") // when error, 'errno' always 0, but 'data' is empty array.
+					suc_func(obj.data); 
+				// username: data.user_bdname || data.pass_info.un || data.nick || data.pass_info.displayname
+				// uid: data.pass_info.uid || data.user_bdid
+				else
+					fail_func(obj.err_message)
+		};
+		var f = function(err, obj)
+		{
+			if(obj.errno == 0) // in BaiduService AJAX function, it will call onFail function.
+				s(obj);
+			else
+				fail_func(err);
+		}
+		req.sendRequest(s, f);
 }

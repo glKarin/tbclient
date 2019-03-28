@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#ifndef _NL_QPAINTERVIDEOSURFACE_P_H
-#define _NL_QPAINTERVIDEOSURFACE_P_H
+#ifndef _KARIN_QPAINTERVIDEOSURFACE_P_H
+#define _KARIN_QPAINTERVIDEOSURFACE_P_H
 
 //
 //  W A R N I N G

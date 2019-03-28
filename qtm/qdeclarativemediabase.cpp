@@ -52,8 +52,6 @@
 
 #include "qdeclarativemediametadata_p.h"
 
-#include "nl_std.h"
-
 QT_BEGIN_NAMESPACE
 
 
@@ -244,6 +242,9 @@ QDeclarativeMediaBase::QDeclarativeMediaBase()
     , m_status(QMediaPlayer::NoMedia)
     , m_error(QMediaPlayer::ServiceMissingError)
 {
+#ifdef _KARIN_MM_EXTENSIONS
+	bUsingHeaders = false;
+#endif
 }
 
 QDeclarativeMediaBase::~QDeclarativeMediaBase()
@@ -322,7 +323,14 @@ void QDeclarativeMediaBase::componentComplete()
     m_playerControl->setPlaybackRate(m_playbackRate);
 
     if (!m_source.isEmpty() && (m_autoLoad || m_playing)) // Override autoLoad if playing set
+		{
+#ifdef _KARIN_MM_EXTENSIONS
+			if(CheckSource())
+				SetMediaRequest();
+			else
+#endif
         m_playerControl->setMedia(m_source, 0);
+		}
 
     m_complete = true;
 
@@ -364,11 +372,10 @@ void QDeclarativeMediaBase::setSource(const QUrl &url)
             emit errorChanged();
         }
 
-#ifdef _NL_MULTIMEDIA_EXTENSION
-				QNetworkRequest req;
-				if(nlSTD::create_request(&req, m_source))
-					m_playerControl->setMedia(req, 0);
-				else
+#ifdef _KARIN_MM_EXTENSIONS
+			if(CheckSource())
+				SetMediaRequest();
+			else
 #endif
         m_playerControl->setMedia(m_source, 0);
         m_loaded = true;
@@ -423,6 +430,11 @@ void QDeclarativeMediaBase::setPlaying(bool playing)
     if (m_complete) {
         if (playing) {
             if (!m_autoLoad && !m_loaded) {
+#ifdef _KARIN_MM_EXTENSIONS
+							if(CheckSource())
+								SetMediaRequest();
+							else
+#endif
                 m_playerControl->setMedia(m_source, 0);
                 m_playerControl->setPosition(m_position);
                 m_loaded = true;
@@ -455,6 +467,11 @@ void QDeclarativeMediaBase::setPaused(bool paused)
 
     if (m_complete && m_playing) {
         if (!m_autoLoad && !m_loaded) {
+#ifdef _KARIN_MM_EXTENSIONS
+					if(CheckSource())
+						SetMediaRequest();
+					else
+#endif
             m_playerControl->setMedia(m_source, 0);
             m_playerControl->setPosition(m_position);
             m_loaded = true;
@@ -570,6 +587,113 @@ QDeclarativeMediaMetaData *QDeclarativeMediaBase::metaData() const
 {
     return m_metaData.data();
 }
+
+#ifdef _KARIN_MM_EXTENSIONS
+void QDeclarativeMediaBase::SetHeaders(const QMap<QByteArray, QByteArray> &headers)
+{
+	if(tHeaders != headers)
+	{
+		tHeaders = headers;
+	}
+}
+
+QMap<QByteArray, QByteArray> QDeclarativeMediaBase::Headers() const
+{
+	return tHeaders;
+}
+
+void QDeclarativeMediaBase::ClearHeaders()
+{
+	if(!tHeaders.isEmpty())
+	{
+		tHeaders.clear();
+	}
+}
+
+QByteArray QDeclarativeMediaBase::GetHeader(const QByteArray &name) const
+{
+	return tHeaders.value(name);
+}
+
+void QDeclarativeMediaBase::SetHeader(const QByteArray &name, const QByteArray &value)
+{
+	QByteArray v = tHeaders.value(name);
+	if(v != value)
+	{
+		tHeaders[name] = value;
+	}
+}
+
+QDeclarativeMediaBase * QDeclarativeMediaBase::RemoveHeader(const QByteArray &name)
+{
+	if(tHeaders.contains(name))
+	{
+		tHeaders.remove(name);
+	}
+	return this;
+}
+
+QDeclarativeMediaBase * QDeclarativeMediaBase::AddHeader(const QByteArray &name, const QByteArray &value)
+{
+	if(!tHeaders.contains(name))
+	{
+		tHeaders.insert(name, value);
+	}
+	return this;
+}
+
+bool QDeclarativeMediaBase::UsingHeaders() const
+{
+	return bUsingHeaders;
+}
+
+void QDeclarativeMediaBase::SetUsingHeaders(bool b)
+{
+	if(bUsingHeaders != b)
+	{
+		bUsingHeaders = b;
+	}
+}
+
+void QDeclarativeMediaBase::SetMediaRequest()
+{
+	if(!bUsingHeaders)
+		return;
+	if(tHeaders.isEmpty())
+	{
+		m_playerControl->setMedia(m_source, 0);
+		return;
+	}
+
+// #define VDEBUG
+#ifdef VDEBUG
+	qDebug() << m_source;
+#endif
+	QNetworkRequest req(m_source);
+	for(QMap<QByteArray, QByteArray>::const_iterator itor = tHeaders.constBegin();
+			itor != tHeaders.constEnd(); ++itor)
+	{
+		req.setRawHeader(itor.key(), itor.value());
+#ifdef VDEBUG
+		qDebug() << itor.key() << itor.value();
+#endif
+	}
+	m_playerControl->setMedia(req, 0);
+}
+
+bool QDeclarativeMediaBase::CheckSource() const
+{
+	if(m_source.isEmpty())
+		return false;
+	
+	QString scheme = m_source.scheme();
+	if(scheme.isEmpty() || scheme == "file")
+		return false;
+
+	return bUsingHeaders;
+}
+
+#endif
 
 QT_END_NAMESPACE
 

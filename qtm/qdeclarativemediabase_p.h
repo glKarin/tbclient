@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#ifndef _NL_QDECLARATIVEMEDIABASE_P_H
-#define _NL_QDECLARATIVEMEDIABASE_P_H
+#ifndef _KARIN_QDECLARATIVEMEDIABASE_P_H
+#define _KARIN_QDECLARATIVEMEDIABASE_P_H
 
 //
 //  W A R N I N G
@@ -119,6 +119,28 @@ public:
     void _q_metaDataChanged();
 
     void componentComplete();
+
+#ifdef _KARIN_MM_EXTENSIONS
+public:
+		void SetHeaders(const QMap<QByteArray, QByteArray> &headers);
+		QMap<QByteArray, QByteArray> Headers() const;
+		void ClearHeaders();
+		QByteArray GetHeader(const QByteArray &name) const;
+		void SetHeader(const QByteArray &name, const QByteArray &value);
+		QDeclarativeMediaBase * RemoveHeader(const QByteArray &name);
+		QDeclarativeMediaBase * AddHeader(const QByteArray &name, const QByteArray &value);
+
+		bool UsingHeaders() const;
+		void SetUsingHeaders(bool b);
+
+private:
+		void SetMediaRequest();
+		bool CheckSource() const;
+
+private:
+		QMap<QByteArray, QByteArray> tHeaders;
+		bool bUsingHeaders;
+#endif
 
 protected:
     void shutdown();

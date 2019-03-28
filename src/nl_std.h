@@ -3,8 +3,8 @@
 
 #include <QNetworkRequest>
 
-#define _NL_PATCH "2"
-#define _NL_RELEASE "20190323"
+#define _NL_PATCH "5"
+#define _NL_RELEASE "20190327"
 #define _NL_DEV "karin"
 #define _NL_VERS "harmattan"
 #define _NL_CODE "FarAwayFromHome"
@@ -15,7 +15,9 @@
 
 //k #define _NL_SYMBIAN3_BUILD
 
+#ifdef _KARIN_MM_EXTENSIONS
 #define _NL_MULTIMEDIA_EXTENSION
+#endif
 
 #define NLSTD_BEGIN_NAMESPACE namespace nlSTD { 
 #define NLSTD_END_NAMESPACE }

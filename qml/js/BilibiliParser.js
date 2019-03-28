@@ -39,6 +39,39 @@ var BilibiliParser = function()
 		xhr.send();
 	}
 
+	function SortDashVideo(video)
+	{
+		var arr = [];
+		for(var i in video)
+		{
+			var v = video[i];
+			var q = parseInt(v.id);
+			var has = false;
+			for(var j in arr)
+			{
+				var a = arr[j];
+				if(a.quality == q)
+				{
+					a.video.push(v);
+					has = true;
+					break;
+				}
+			}
+			if(!has)
+			{
+				var a = {
+					quality: q,
+					video: [v],
+				};
+				arr.push(a);
+			}
+		}
+		arr.sort(function(a, b){
+			return a.quality - b.quality;
+		});
+		return arr;
+	}
+
 	function GetCidList(json){
 		var pages = [];
 		var data = json["data"];
@@ -91,25 +124,28 @@ var BilibiliParser = function()
 		};
 		var ajax_fail_func = function(code, text)
 		{
-			var msg = "[Error]: Network response -> " + code;
-			if(text)
-				msg += ", text -> " + text;
+			var msg = BilibiliParser.prototype.ResponseError(code, text);
 			fail(msg);
 		};
 		var get_cid_func = function(text){
 			var json = JSON.parse(text);
-			var pages = GetCidList(json);
-			for(var i in pages)
+			if(json.code == 0)
 			{
-				var cid = pages[i].cid.toString();
-				if(!cid) continue;
-				var part_url = API_FMT.arg(avid).arg(cid).arg(16);
-				var data = {
-					title: pages[i].part,
-					index: i,
-				};
-				GetJSONP(part_url, ajax_suc_func, ajax_fail_func, data);
+				var pages = GetCidList(json);
+				for(var i in pages)
+				{
+					var cid = pages[i].cid.toString();
+					if(!cid) continue;
+					var part_url = API_FMT.arg(avid).arg(cid).arg(16);
+					var data = {
+						title: pages[i].part,
+						index: i,
+					};
+					GetJSONP(part_url, ajax_suc_func, ajax_fail_func, data);
+				}
 			}
+			else // {"code":62002,"message":"稿件不可见","ttl":1}
+				ajax_fail_func(json.code, json.message);
 		};
 		GetJSONP(aid_url, get_cid_func, ajax_fail_func);
 	}
@@ -150,11 +186,32 @@ var BilibiliParser = function()
 				};
 				model.append(item);
 			} else { // dash
-				/*
-					 data['dash']['video'];
-					 data['dash']['audio'];
-					 */
-				BilibiliParser.prototype.ShowStatusText("[%1]: %2!".arg("ERROR").arg("The 'durl' not found in response data"));
+				var urls = SortDashVideo(data["dash"].video);
+				var audio = data["dash"].audio;
+				var first = urls[0];
+				var video = first.video;
+				for(var i in video)
+				{
+					var e = video[i];
+					arr.push({
+						title: d.index || 0, 
+						name: e.baseUrl ? i : "" + i + "*",
+						url: e.baseUrl, // + " " + audio[i].baseUrl;
+						value: i,
+						duration: 0,
+						size: 0,
+					});
+					total_size += 0;
+				}
+				var item = {
+					name: title,
+					index: parseInt(d.index) || 0,
+					size: total_size,
+					duration: data.timelength,
+					part: arr
+				};
+				model.append(item);
+				//BilibiliParser.prototype.ShowStatusText(BilibiliParser.prototype.ResponseError("The 'durl' not found in response data"));
 			}
 		};
 
@@ -183,13 +240,25 @@ var BilibiliParser = function()
 					}
 				}
 				else
-					BilibiliParser.prototype.ShowStatusText("[%1]: %2!".arg("ERROR").arg("Content index is out of range on this avid"));
+					BilibiliParser.prototype.ShowStatusText(BilibiliParser.prototype.ResponseError("Content index is out of range on this avid"));
 			} else { // dash
-				/*
-					 data['dash']['video'];
-					 data['dash']['audio'];
-					 */
-				BilibiliParser.prototype.ShowStatusText("[%1]: %2!".arg("ERROR").arg("The 'durl' not found in response data"));
+				var urls = SortDashVideo(data["dash"].video);
+				var audio = data["dash"].audio;
+				var first = urls[0];
+				var video = first.video;
+				if(type < video.length)
+				{
+					var url = video[type].baseUrl; // + " " + audio[type].baseUrl;
+
+					if (url) {
+						console.log("url -> " + url);
+						BilibiliParser.prototype.Play(url);
+					} else {
+						BilibiliParser.prototype.ShowStatusText("Not found!");
+					}
+				}
+				else
+					BilibiliParser.prototype.ShowStatusText(BilibiliParser.prototype.ResponseError("Content index is out of range on this avid"));
 			}
 		}; // get_streamtypes_func end
 

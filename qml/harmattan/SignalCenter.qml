@@ -36,7 +36,7 @@ QtObject {
         if (msg||false){
             infoBanner.text = msg;
             infoBanner.show();
-						console.log(msg);
+						if(Script.Verena._Dbg & Script.NL_DBG_QML) console.log(msg);
         }
     }
 
@@ -262,10 +262,13 @@ QtObject {
 					horizontalAlignment: Text.AlignHCenter,
 				},
 				{
-					text: "1, " + qsTr("Support Acfun and Bilibili video source."),
+					text: "  * " + qsTr("Internal player supports to set request headers for playing Bilibili video."),
 				},
 				{
-					text: "2, " + qsTr("Add video page and simple player(for playing Bilibili videos)."),
+					text: "  * " + qsTr("Fixed 'My post' and 'User post' page, 'My post' page supports to get thread only."),
+				},
+				{
+					text: "  * " + qsTr("Get user name when user login with wap passport."),
 				},
 
 				{
@@ -324,13 +327,64 @@ QtObject {
         Script.getUserProfile(prop, s, f);
     }
 
-		function _OpenPlayer(url, title)
+		function _OpenPlayer(url, source, title)
 		{
+			var __RandIP = function(start, end)
+			{
+				var f = function(a, b){
+					var i = Math.random() * (max - min) + min;
+					return Math.floor(i).toString();
+				};
+				var min = typeof(start) === "number" ? start : 50;
+				var max = typeof(end) === "number" ? end : 250;
+				return "%1.%2.%3.%4".arg(f(min, max)).arg(f(min, max)).arg(f(min, max)).arg(f(min, max));
+			};
+			var Headers = {
+				"bilibili": [
+					{
+						name: "User-Agent",
+						value: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36",
+					},
+					{
+						name: "Referer",
+						value: "https://www.bilibili.com",
+					},
+				],
+				"youku": [
+					/*
+					 {
+						 name: "Referer",
+						 value: "http://v.youku.com",
+					 },
+					 */
+					{
+						name: "User-Agent",
+						value: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+					},
+					{
+						name: "HTTP_X_FORWARDED_FOR",
+						value: __RandIP(),
+					},
+					{
+						name: "Accept",
+						value: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+					},
+					{
+						name: "Accept-Language",
+						value: "zh-CN,en-US;q=0.7,en;q=0.3",
+					},
+				],
+			};
 			var prop = { 
 				videosource: url, 
 				title: title || "",
 			};
+			if(source && Headers.hasOwnProperty(source))
+			{
+				prop.requestHeaders = Headers[source];
+				prop.headersEnabled = true;
+			}
 			var p = pageStack.push(Qt.resolvedUrl("PlayerPage.qml"), prop, true);
 			p._Load();
 		}
-}
+	}

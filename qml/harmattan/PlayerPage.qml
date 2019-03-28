@@ -11,6 +11,8 @@ Page{
 	property string videosource;
 	property string title;
 	property int iPlayerOrientation: 1;
+	property alias requestHeaders: video.requestHeaders;
+	property alias headersEnabled: video.headersEnabled;
 
 	property string __STATE_SHOW: "show";
 	property string __STATE_HIDE: "hide";
@@ -23,7 +25,7 @@ Page{
 		video.source = root.videosource;
 		if(video.source != "")
 		{
-			video.fillMode = Video.PreserveAspectFit;
+			video.fillMode = YeatseVideo.PreserveAspectFit;
 			video.play();
 
 			if(pos && video.seekable)
@@ -63,14 +65,15 @@ Page{
 		id: video;
 		anchors.fill: parent;
 		z: 1;
+		headersEnabled: false;
 		onError: {
-			if(error !== Video.NoError){
+			if(error !== YeatseVideo.NoError){
 				signalCenter.showMessage(error + " : " + errorString);
 				root.__Stop();
 			}
 		}
 		onStatusChanged:{
-			if(status === Video.EndOfMedia){
+			if(status === YeatseVideo.EndOfMedia){
 				video.position = 0;
 			}
 		}
@@ -85,14 +88,14 @@ Page{
 			switch(value)
 			{
 				case 0:
-				video.fillMode = Video.Stretch;
+				video.fillMode = YeatseVideo.Stretch;
 				break;
 				case 2:
-				video.fillMode = Video.PreserveAspectCrop;
+				video.fillMode = YeatseVideo.PreserveAspectCrop;
 				break;
 				case 1:
 				default:
-				video.fillMode = Video.PreserveAspectFit;
+				video.fillMode = YeatseVideo.PreserveAspectFit;
 				break;
 			}
 

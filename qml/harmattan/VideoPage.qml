@@ -108,6 +108,14 @@ MyPage {
 							internal._MakeInputFocus();
 						}
             //onTypeStopped: {}
+						platformSipAttributes: SipAttributes {
+							actionKeyLabel: qsTr("OK");
+							actionKeyHighlighted: actionKeyEnabled;
+							actionKeyEnabled: searchInput.text !== "";
+						}
+						Keys.onReturnPressed:{
+							searchBtn.clicked();
+						}
         }
         Button {
             id: searchBtn;

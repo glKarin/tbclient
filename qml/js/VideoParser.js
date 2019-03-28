@@ -27,7 +27,24 @@ var VideoParser = function()
 	this.ShowStatusText = function(text) {
 		signalCenter.showMessage(text);
 	}
+	this.ResponseError = function(code, text){
+		return MakeErrorString(code, text);
+	}
 };
+
+function MakeErrorString(errno, errstrs)
+{
+	var msg = "[%1]: %2".arg(qsTr("ERROR")).arg(errno.toString());
+	if(errstrs !== undefined)
+	{
+		msg += " -> ";
+		if(Array.isArray(errstrs))
+			msg += errstrs.join(" ");
+		else
+			msg += errstrs;
+	}
+	return msg;
+}
 
 Qt.include("AcfunParser.js");
 Qt.include("YoukuParser_new.js");
@@ -65,7 +82,7 @@ function GetStreamtypesById(source, vid, model)
 	}
 	else
 	{
-		signalCenter.showMessage("[%1]: %2 -> %3".arg("ERROR").arg(qsTr("Source is not supported")).arg(source));
+		signalCenter.showMessage(MakeErrorString(qsTr("Source is not supported"), source));
 		return false;
 	}
 }
@@ -108,23 +125,25 @@ function GetStreamtypes(url, model)
 		}
 		else
 		{
-			signalCenter.showMessage("[%1]: %2 -> %3 %4".arg("ERROR").arg(qsTr("Url is invalid")).arg(source).arg(url));
+			signalCenter.showMessage(MakeErrorString(qsTr("Url is invalid"), [source, url]));
 			return false;
 		}
 	}
 	else
 	{
-		signalCenter.showMessage("[%1]: %2 -> %3".arg("ERROR").arg(qsTr("Url is not supported")).arg(url));
+		signalCenter.showMessage(MakeErrorString(qsTr("Url is not supported"), url));
 		return false;
 	}
 }
 
 function PlayVideo(videoUrl, source) {
 	var UsingInternalPlayerSources = [
-		"bilibili"
+		"bilibili",
+		//"youku",
+		//"acfun"
 	];
 	if(source && UsingInternalPlayerSources.indexOf(source) >= 0)
-		signalCenter._OpenPlayer(videoUrl);
+		signalCenter._OpenPlayer(videoUrl, source);
 	else
 		utility.launchPlayer(videoUrl);
 }
@@ -141,7 +160,7 @@ function ParseVideo(source, vid, type, part)
 	}
 	else
 	{
-		signalCenter.showMessage("[%1]: %2 -> %3".arg("ERROR").arg(qsTr("Source is not supported")).arg(source));
+		signalCenter.showMessage(MakeErrorString(qsTr("Source is not supported"), source));
 		return false;
 	}
 }

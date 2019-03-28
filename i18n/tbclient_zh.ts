@@ -686,8 +686,8 @@
 <context>
     <name>PlayerPage</name>
     <message>
-        <location filename="../qml/harmattan/PlayerPage.qml" line="210"/>
-        <location filename="../qml/harmattan/PlayerPage.qml" line="220"/>
+        <location filename="../qml/harmattan/PlayerPage.qml" line="213"/>
+        <location filename="../qml/harmattan/PlayerPage.qml" line="223"/>
         <source>Can not support seek for this video</source>
         <translation type="unfinished">不支持视频流定位</translation>
     </message>
@@ -867,17 +867,27 @@
 <context>
     <name>ProfilePost</name>
     <message>
-        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="42"/>
+        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="20"/>
+        <source>Reply</source>
+        <translation type="unfinished">回复</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="29"/>
+        <source>Thread</source>
+        <translation type="unfinished">主帖</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="69"/>
         <source>His posts are not allowed to view</source>
         <translation>该用户设置了贴子不允许查看</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="140"/>
+        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="167"/>
         <source>Reply at %1</source>
         <translation>在%1吧回复</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="140"/>
+        <location filename="../qml/harmattan/Profile/ProfilePost.qml" line="167"/>
         <source>Post at %1</source>
         <translation>在%1吧发贴</translation>
     </message>
@@ -1236,61 +1246,66 @@
     </message>
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="265"/>
-        <source>Support Acfun and Bilibili video source.</source>
-        <translation type="unfinished">新增Acfun和Bilibili视频源支持</translation>
+        <source>Internal player supports to set request headers for playing Bilibili video.</source>
+        <translation type="unfinished">内置播放器支持设置请求头, 用于播放Bilibili视频</translation>
     </message>
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="268"/>
-        <source>Add video page and simple player(for playing Bilibili videos).</source>
-        <translation type="unfinished">新增视频页面, Bilibili视频必须使用内置简易播放器播放</translation>
+        <source>Fixed &apos;My post&apos; and &apos;User post&apos; page, &apos;My post&apos; page supports to get thread only.</source>
+        <translation type="unfinished">修复&apos;发过的帖子&apos;页面, &apos;我的帖子&apos;增加只看主题帖选项</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="272"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="271"/>
+        <source>Get user name when user login with wap passport.</source>
+        <translation type="unfinished">通过Wap通道登录后, 获取用户名</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="275"/>
         <source>Email</source>
         <translation type="unfinished">邮箱</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="276"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="279"/>
         <source>Source</source>
         <translation type="unfinished">源码</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="280"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="283"/>
         <source>Download</source>
         <translation type="unfinished">下载</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="285"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="288"/>
         <source>About author</source>
-        <translation type="unfinished">关于原作者</translation>
+        <translation type="unfinished">原作者</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="286"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="289"/>
         <source>Her profile</source>
         <translation type="unfinished">她的主页</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="287"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="290"/>
         <source>Her tieba</source>
         <translation type="unfinished">她的贴吧</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="288"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="291"/>
         <source>Follow her</source>
         <translation type="unfinished">关注她</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="289"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="292"/>
         <source>Update</source>
         <translation type="unfinished">更新</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="316"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="319"/>
         <source>You have been her fans.</source>
         <translation type="unfinished">你已经是她的粉丝了</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/SignalCenter.qml" line="321"/>
+        <location filename="../qml/harmattan/SignalCenter.qml" line="324"/>
         <source>Follow her success</source>
         <translation type="unfinished">关注成功</translation>
     </message>
@@ -1745,7 +1760,12 @@
         <translation type="unfinished">请输入视频地址或ID</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/VideoPage.qml" line="125"/>
+        <location filename="../qml/harmattan/VideoPage.qml" line="112"/>
+        <source>OK</source>
+        <translation type="unfinished">确定</translation>
+    </message>
+    <message>
+        <location filename="../qml/harmattan/VideoPage.qml" line="133"/>
         <source>Please input video ID or url</source>
         <translation type="unfinished">请输入视频ID或链接</translation>
     </message>
@@ -1753,20 +1773,14 @@
 <context>
     <name>VideoParser</name>
     <message>
-        <location filename="../qml/js/VideoParser.js" line="68"/>
-        <location filename="../qml/js/VideoParser.js" line="144"/>
+        <location filename="../qml/js/VideoParser.js" line="37"/>
+        <source>ERROR</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../qml/js/VideoParser.js" line="85"/>
         <source>Source is not supported</source>
         <translation type="unfinished">不支持的视频源</translation>
-    </message>
-    <message>
-        <location filename="../qml/js/VideoParser.js" line="117"/>
-        <source>Url is not supported</source>
-        <translation type="unfinished">不支持的视频地址</translation>
-    </message>
-    <message>
-        <location filename="../qml/js/VideoParser.js" line="111"/>
-        <source>Url is invalid</source>
-        <translation type="unfinished">无效的视频地址</translation>
     </message>
 </context>
 <context>
@@ -1810,12 +1824,12 @@
         <translation type="unfinished">登录成功！</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/WapLoginPage.qml" line="123"/>
+        <location filename="../qml/harmattan/WapLoginPage.qml" line="162"/>
         <source>JavaScript eval fail</source>
         <translation type="unfinished">js脚本执行失败</translation>
     </message>
     <message>
-        <location filename="../qml/harmattan/WapLoginPage.qml" line="128"/>
+        <location filename="../qml/harmattan/WapLoginPage.qml" line="167"/>
         <source>BDUSS not found in cookies</source>
         <translation type="unfinished">cookie中未发现BDUSS</translation>
     </message>

@@ -83,9 +83,10 @@ var Youku2Parser = function()
 		if(obj.data.hasOwnProperty("error"))
 		{
 			var error = obj.data.error;
-			var msg = "[Error]: " + error.code + " - " + error.note + "\n"
-				+ "Video ID: " + error.vid + "\n";
-			return msg;
+			var m = error.note;
+			if(error.hasOwnProperty("vid"))
+				m += "(%1)".arg(error.vid);
+			return Youku2Parser.prototype.ResponseError(error.code, m);
 		}
 		return false;
 	}
@@ -149,16 +150,14 @@ var Youku2Parser = function()
 
 		var ajax_fail_func = function(code, text)
 		{
-			var msg = "[Error]: Network response -> " + code;
-			if(text)
-				msg += ", text -> " + text;
+			var msg = Youku2Parser.prototype.ResponseError(code, text);
 			fail(msg);
 		};
 		var ajax_suc_func = function(text, header){
 			var json = JSON.parse(text);
 			var r = CheckError(json);
 			if(r)
-				ajax_fail_func(r);
+				fail(r);
 			else
 				success(json);
 		};

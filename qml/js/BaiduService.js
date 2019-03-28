@@ -94,12 +94,17 @@ var NL_DBG_REQ = 1;
 var NL_DBG_RESP = (1 << 1);
 var NL_DBG_HEADER = (1 << 2);
 var NL_DBG_QML = (1 << 3);
+var NL_DBG_NETWORK = NL_DBG_REQ | NL_DBG_RESP | NL_DBG_HEADER;
 var NL_DBG_ALL = ~0;
 
 var Verena = {
-	//_Dbg: NL_DBG_REQ | NL_DBG_QML,
+	//_Dbg: NL_DBG_ALL,
+	//_Dbg: NL_DBG_QML,
 	_Dbg: NL_DBG_NONE,
 	_WapPassportUrl: "https://wappass.baidu.com/passport",
+	GET_USER_PROFILE_CE: "http://ce.baidu.com/site/getUserProfile",
+	GET_USER_PROFILE: "http://leboapi.baidu.com/leboapi/user?type=getUserDetail",
+	_C_U_FEED_USERPOST: HOST + "/c/u/feed/userpost",
 };
 
 var BaiduRequest = function(action, method){

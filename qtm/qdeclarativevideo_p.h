@@ -39,8 +39,8 @@
 **
 ****************************************************************************/
 
-#ifndef _NL_QDECLARATIVEVIDEO_H
-#define _NL_QDECLARATIVEVIDEO_H
+#ifndef _KARIN_QDECLARATIVEVIDEO_H
+#define _KARIN_QDECLARATIVEVIDEO_H
 
 //
 //  W A R N I N G
@@ -93,6 +93,26 @@ class QDeclarativeVideo : public QDeclarativeItem, public QDeclarativeMediaBase
     Q_ENUMS(FillMode)
     Q_ENUMS(Status)
     Q_ENUMS(Error)
+
+#ifdef _KARIN_MM_EXTENSIONS
+		Q_PROPERTY(QVariantList requestHeaders READ RequestHeaders WRITE SetRequestHeaders NOTIFY requestHeadersChanged)
+		Q_PROPERTY(bool headersEnabled READ HeadersEnabled WRITE SetHeadersEnabled NOTIFY headersEnabledChanged)
+
+	public:
+		QVariantList RequestHeaders() const;
+		void SetRequestHeaders(const QVariantList &headers);
+
+		bool HeadersEnabled() const;
+		void SetHeadersEnabled(bool b);
+
+Q_SIGNALS:
+		void requestHeadersChanged();
+		void headersEnabledChanged();
+
+	private:
+		QVariantList tRequestHeaders;
+#endif
+
 public:
     enum FillMode
     {

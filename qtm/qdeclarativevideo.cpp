@@ -416,6 +416,47 @@ void QDeclarativeVideo::componentComplete()
     QDeclarativeMediaBase::componentComplete();
 }
 
+#ifdef _KARIN_MM_EXTENSIONS
+QVariantList QDeclarativeVideo::RequestHeaders() const
+{
+	return tRequestHeaders;
+}
+
+void QDeclarativeVideo::SetRequestHeaders(const QVariantList &headers)
+{
+	if(tRequestHeaders != headers)
+	{
+		QDeclarativeMediaBase::ClearHeaders();
+		Q_FOREACH(const QVariant &v, headers)
+		{
+			QVariantMap m = v.toMap();
+			QString key = m.value("name").toString();
+			if(key.isEmpty())
+				continue;
+
+			QString value = m.value("value").toString();
+			QDeclarativeMediaBase::AddHeader(QByteArray().append(key), QByteArray().append(value));
+		}
+		emit requestHeadersChanged();
+	}
+}
+
+bool QDeclarativeVideo::HeadersEnabled() const
+{
+	return QDeclarativeMediaBase::UsingHeaders();
+}
+
+void QDeclarativeVideo::SetHeadersEnabled(bool b)
+{
+	if(QDeclarativeMediaBase::UsingHeaders() != b)
+	{
+		QDeclarativeMediaBase::SetUsingHeaders(b);
+		emit headersEnabledChanged();
+	}
+}
+
+#endif
+
 QT_END_NAMESPACE
 
 // ***************************************

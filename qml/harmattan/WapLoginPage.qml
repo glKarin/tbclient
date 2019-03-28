@@ -103,7 +103,35 @@ MyPage {
 			loading = false;
 			signalCenter.showMessage(err);
 		}
+		_GetUserProfile_DOM(s, f);
+	}
 
+	function _GetUserProfile(_E, suc_func, fail_func)
+	{
+		var pf = function(s){
+			var start = s.lastIndexOf("/");
+			var end = s.lastIndexOf(".");
+			return (start !== -1 && end !== -1) ? s.substring(start + 1, end) : s;
+		};
+		var f = function(err, obj){
+			fail_func(err);
+		};
+		var s =function(data){
+			var name = data.pass_info ? (data.pass_info.displayname || data.pass_info.un) : (data.user_bdname || data.nick);
+			if(_E["name"] === "" || (_E["name"] !== name && name !== "")) _E["name"] = name;
+			if(_E["id"] === "") _E["id"] = data.pass_info ? data.pass_info.uid : data.user_bdid;
+			if(Script.Verena._Dbg & Script.NL_DBG_QML)
+			{
+				console.log("  * Get user profile with API");
+				for(var k in _E) console.log(k, _E[k], typeof(_E[k]));
+			}
+			Script.WapLogin(_E, suc_func, fail_func);
+		};
+		Script.GetUserProfile(s, f);
+	}
+
+	function _GetUserProfile_DOM(suc_func, fail_func)
+	{
 		var cookies = utility.GetCookie(Script.Verena._WapPassportUrl);
 		if(cookies && cookies["BDUSS"])
 		{
@@ -115,17 +143,28 @@ MyPage {
 				_E["BDUSS"] = cookies["BDUSS"].toString();
 				_E["passwd"] = userpwd;
 				if(_E["name"] === "" && username !== "") _E["name"] = username;
-				if(Script.Verena._Dbg & Script.NL_DBG_QML) for(var k in _E) console.log(k, _E[k], typeof(_E[k]));
-				Script.WapLogin(_E, s, f);
+				if(Script.Verena._Dbg & Script.NL_DBG_QML)
+				{
+					console.log("  * Get user profile with DOM");
+					for(var k in _E) console.log(k, _E[k], typeof(_E[k]));
+				}
+				if(_E["name"] === "" || _E["id"] === "")
+				{
+					_GetUserProfile(_E, suc_func, fail_func);
+				}
+				else
+				{
+					Script.WapLogin(_E, suc_func, fail_func);
+				}
 			}
 			else
 			{
-				f("[%1]: %2 -> %3".arg("ERROR").arg(qsTr("JavaScript eval fail")).arg(script));
+				fail_func("[%1]: %2 -> %3".arg("ERROR").arg(qsTr("JavaScript eval fail")).arg(script));
 			}
 		}
 		else
 		{
-			f("[%1]: %2!".arg("ERROR").arg(qsTr("BDUSS not found in cookies")));
+			fail_func("[%1]: %2!".arg("ERROR").arg(qsTr("BDUSS not found in cookies")));
 		}
 	}
 

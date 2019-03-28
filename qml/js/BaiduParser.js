@@ -753,4 +753,67 @@ var BaiduParser = {
                      });
         return result;
     }
+
+
+
+		,
+		LoadUserPost:
+			function(option, list){
+				var getDT = function(ts, t){
+					var TS = typeof(ts) === "number" ? ts : parseInt(ts.toString());
+					var T = typeof(t) === "string" ? t.toUpperCase(t) : "DATETIME";
+					var d = new Date(TS * 1000);
+					if(T === "DATE")
+						return d.toLocaleDateString();
+					else if(T === "TIME")
+						return d.toLocaleTimeString();
+					else
+						return d.toLocaleString();
+				};
+
+				var THREAD_RICH_TEXT = 0;
+				var model = option.model;
+				if (option.renew) model.clear();
+				if(!option.thread_only)
+				{
+					list.forEach(function(value){
+						for(var i in value.content)
+						{
+							var content = value.content[i];
+							var text = "";
+							for(var j in content.post_content)
+								text += content.post_content[j].text;
+							var prop = {
+								fname: value.forum_name,
+								is_floor: content.post_type === "1",
+								pid: content.post_id,
+								reply_num: value.reply_num,
+								reply_time: getDT(content.create_time, "time"),
+								tid: value.thread_id,
+								time_shaft: getDT(content.create_time, "date"),
+								title: "%1\n%2".arg(value.title).arg(text),
+								isReply: content.post_type === "1",
+							};
+							model.append(prop);
+						}
+					});
+				}
+				else // thread
+				{
+					list.forEach(function(value){
+						var prop = {
+							fname: value.forum_name,
+							is_floor: false,
+							pid: value.post_id,
+							reply_num: value.reply_num,
+							reply_time: getDT(value.create_time, "time"),
+							tid: value.thread_id,
+							time_shaft: getDT(value.create_time, "date"),
+							title: THREAD_RICH_TEXT ? "%1<br/>%2".arg(value.title).arg(value.content) : value.title,
+							isReply: false,
+						};
+						model.append(prop);
+					});
+				}
+			},
 };
