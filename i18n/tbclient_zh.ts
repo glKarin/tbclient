@@ -1252,7 +1252,7 @@
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="268"/>
         <source>Fixed Acfun video part source ID is wrong.</source>
-        <translation type="unfinished">修改Acfun稿件内视频ID错误</translation>
+        <translation type="unfinished">修复Acfun稿件内视频ID错误</translation>
     </message>
     <message>
         <location filename="../qml/harmattan/SignalCenter.qml" line="271"/>
