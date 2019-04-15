@@ -17,7 +17,11 @@ MyPage {
                     [qsTr("Square"),"gallery","pageStack.push(Qt.resolvedUrl(\"Explore/SquarePage.qml\"))"],
                     [qsTr("Accounts"),"accounts","pageStack.push(Qt.resolvedUrl(\"AccountPage.qml\"))"],
                     [qsTr("Settings"),"settings","pageStack.push(Qt.resolvedUrl(\"SettingsPage.qml\"))"],
-                    [qsTr("About"),"user-guide","pageStack.push(Qt.resolvedUrl(\"AboutPage.qml\"))"]];
+
+                                        [qsTr("Video"),"gallery","pageStack.push(Qt.resolvedUrl('VideoPage.qml'))"],
+									
+                    [qsTr("About"),"user-guide","pageStack.push(Qt.resolvedUrl(\"AboutPage.qml\"))"],
+									];
         dict.forEach(function(value){
                          view.model.append({name:value[0],file:value[1],script:value[2]});
                      });

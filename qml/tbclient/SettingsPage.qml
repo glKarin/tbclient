@@ -131,7 +131,7 @@ MyPage {
                 SelectionDialog {
                     id: clientTypeSelector;
                     titleText: qsTr("User agent");
-                    model: ["iPhone","Android"]//,"Windows Phone","Windows 8",qsTr("Others")];
+										model: ["iPhone" /*,"Android"*/ ]//,"Windows Phone","Windows 8",qsTr("Others")];
                     selectedIndex: tbsettings.clientType-1;
                     onAccepted: tbsettings.clientType = selectedIndex + 1;
                 }
@@ -182,6 +182,100 @@ MyPage {
                     }
                 }
             }
+
+						Column{
+							width: parent.width;
+							Text {
+								x: constant.paddingLarge;
+                                height: constant.graphicSizeMedium;
+								font: constant.labelFont;
+								color: constant.colorLight;
+								text: qsTr("Lock orientation");
+                                verticalAlignment: Text.AlignVCenter;
+							}
+							ButtonRow {
+                                id: orientationbtnrow;
+                                width: parent.width;
+                                exclusive: false;
+								anchors {
+									horizontalCenter: parent.horizontalCenter;
+								}
+								Button{
+                                    property int __ovalue: 0;
+                                    text: qsTr("Automitic");
+                                    checked: tbsettings.orientation == __ovalue;
+                                    onClicked: {
+                                        orientationbtnrow.__SetOrientation(__ovalue);
+									}
+								}
+								Button{
+                                    property int __ovalue: 1;
+                                    text: qsTr("Portrait");
+                                    checked: tbsettings.orientation == __ovalue;
+                                    onClicked: {
+                                        orientationbtnrow.__SetOrientation(__ovalue);
+									}
+								}
+								Button{
+                                    property int __ovalue: 2;
+                                    text: qsTr("Landscape");
+                                    checked: tbsettings.orientation == __ovalue;
+									onClicked: {
+                                        orientationbtnrow.__SetOrientation(__ovalue);
+									}
+                                }
+                                function __SetOrientation(i)
+                                {
+                                    orientationbtnrow.exclusive = true;
+                                    tbsettings.orientation = i;
+                                }
+							}
+							Item { width: 1; height: constant.paddingLarge; }
+						}
+						Text {
+							x: constant.paddingLarge;
+                            width: parent.width - constant.paddingLarge;
+                            height: constant.graphicSizeMedium;
+							font: constant.labelFont;
+							color: constant.colorLight;
+							text: qsTr("wap login directly");
+                            verticalAlignment: Text.AlignVCenter;
+							Switch {
+								anchors {
+									right: parent.right; rightMargin: 18;
+									verticalCenter: parent.verticalCenter;
+								}
+								checked: tbsettings.wapLoginDirectly;
+								Component.onCompleted: {
+									checkedChanged.connect(function(){tbsettings.wapLoginDirectly = checked})
+								}
+							}
+            }
+						Text {
+							x: constant.paddingLarge;
+                            width: parent.width - constant.paddingLarge;
+                            height: constant.graphicSizeMedium;
+							font: constant.labelFont;
+							color: constant.colorLight;
+              text: qsTr("wap login page show image");
+                            verticalAlignment: Text.AlignVCenter;
+							Switch {
+								anchors {
+									right: parent.right; rightMargin: 18;
+									verticalCenter: parent.verticalCenter;
+								}
+								checked: tbsettings.wapLoginPageShowImage;
+								Component.onCompleted: {
+									checkedChanged.connect(function(){tbsettings.wapLoginPageShowImage = checked})
+								}
+							}
+						}
+            Rectangle {
+                anchors { left: parent.left; right: parent.right; margins: constant.paddingXLarge; }
+                height: 1;
+                color: constant.colorMarginLine;
+            }
+
             Item { width: 1; height: constant.paddingLarge; }
             Button {
                 platformInverted: tbsettings.whiteTheme;

@@ -71,12 +71,14 @@ DEPLOYMENTFOLDERS = folder_js folder_emo
 
 simulator {
     DEPLOYMENTFOLDERS += folder_symbian3 folder_symbian1 folder_harmattan
+
+#HEADERS += qtm/qdeclarativewebview.h
+#SOURCES += qtm/qdeclarativewebview.cpp
 }
 
 MOC_DIR = .moc
 OBJECTS_DIR = .obj
 
-contains(MEEGO_EDITION,harmattan){
 INCLUDEPATH += qtm
 HEADERS += \
 qtm/qdeclarativemediabase_p.h \
@@ -89,6 +91,9 @@ qtm/qdeclarativemediabase.cpp \
 qtm/qdeclarativevideo.cpp \
 qtm/qpaintervideosurface.cpp
 
+DEFINES += _KARIN_MM_EXTENSIONS
+
+contains(MEEGO_EDITION,harmattan){
     DEFINES += Q_OS_HARMATTAN
     CONFIG += qdeclarative-boostable
     CONFIG += videosuiteinterface-maemo-meegotouch  #video suite
@@ -111,6 +116,7 @@ qtm/qpaintervideosurface.cpp
 }
 
 symbian {
+DEFINES += _KARIN_SYMBIAN_ANNA_BUILD_TEST
 #    contains(S60_VERSION, 5.0){
     contains(QT_VERSION, 4.7.3){
         DEFINES += Q_OS_S60V5
@@ -138,11 +144,20 @@ symbian {
         Location \
         UserEnvironment
 
+contains(DEFINES, _KARIN_SYMBIAN_ANNA_BUILD_TEST){
+    LIBS *= \
+        -lMgFetch -lbafl \              #for Selecting Picture
+        -lapparc -lws32 -lapgrfx \      #for Launching app
+        -lServiceHandler \ # -lnewservice \ #and -lbafl for Camera
+        -lavkon                       #for notification
+} else {
     LIBS *= \
         -lMgFetch -lbafl \              #for Selecting Picture
         -lapparc -lws32 -lapgrfx \      #for Launching app
         -lServiceHandler -lnewservice \ #and -lbafl for Camera
-        -lavkon \                       #for notification
+        -lavkon \
+
+}
 
     contains(DEFINES, Q_OS_S60V5){
         LIBS *= -laknnotify -leiksrv    #for global notes

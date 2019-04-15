@@ -48,6 +48,15 @@ TBNetworkAccessManager::TBNetworkAccessManager(QObject *parent) :
 QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetworkRequest &request, QIODevice *outgoingData)
 {
     QNetworkRequest req(request);
+#ifndef Q_OS_HARMATTAN
+        if(req.url().scheme() == "https")
+        {
+            QSslConfiguration config;
+            config.setPeerVerifyMode(QSslSocket::VerifyNone);
+            config.setProtocol(QSsl::TlsV1);
+            req.setSslConfiguration(config);
+        }
+#endif
     // set user-agent
     if (op == PostOperation){
         req.setRawHeader("User-Agent", "IDP");
@@ -67,7 +76,7 @@ QNetworkReply *TBNetworkAccessManager::createRequest(Operation op, const QNetwor
         req.setAttribute(QNetworkRequest::CacheSaveControlAttribute, false);
     }
 
-		nlSTD::create_request(&req);
+        nlSTD::create_request(&req);
 
     QNetworkReply *reply = QNetworkAccessManager::createRequest(op, req, outgoingData);
     return reply;

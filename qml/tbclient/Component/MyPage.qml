@@ -9,6 +9,8 @@ Page {
     property bool loadingVisible: loading && (internal.view?internal.view.count===0:false);
     property string loadingText: qsTr("Loading");
 
+		orientationLock: tbsettings.orientation == 1 ? PageOrientation.LockPortrait : (tbsettings.orientation == 2 ? PageOrientation.LockLandscape : PageOrientation.Automatic);
+
     QtObject {
         id: internal;
 

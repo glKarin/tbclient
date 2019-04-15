@@ -13,7 +13,7 @@
 #define _NL_PAN "https://pan.baidu.com/s/13RO01jM7SreumvA5sMjGqw 69h2"
 #define _NL_OPENREPOS "https://openrepos.net/content/karinzhao/tiebaclientr"
 
-//k #define _NL_SYMBIAN3_BUILD
+#define _NL_SYMBIAN3_BUILD
 
 #ifdef _KARIN_MM_EXTENSIONS
 #define _NL_MULTIMEDIA_EXTENSION

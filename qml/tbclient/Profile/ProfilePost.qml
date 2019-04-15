@@ -12,6 +12,29 @@ MyPage {
 
     tools: ToolBarLayout {
         BackButton {}
+
+				ButtonRow{
+					visible: uid == tbsettings.currentUid;
+					TabButton{
+						enabled: !loading;
+						text: qsTr("Reply");
+						checked: !internal.bThreadOnly;
+						onClicked: {
+							internal.bThreadOnly = false;
+							internal.getlist();
+						}
+					}
+					TabButton{
+						enabled: !loading;
+						text: qsTr("Thread");
+						checked: internal.bThreadOnly;
+						onClicked: {
+							internal.bThreadOnly = true;
+							internal.getlist();
+						}
+					}
+				}
+
         ToolButtonWithTip {
             toolTipText: qsTr("Refresh");
             iconSource: "toolbar-refresh";
@@ -24,10 +47,14 @@ MyPage {
 
         property int currentPage: 1;
         property bool hasMore: false;
+				property bool bThreadOnly: false;
 
         function getlist(option){
             option = option||"renew";
             var opt = { page: internal, model: view.model, user_id: uid };
+
+						if(uid === tbsettings.currentUid && bThreadOnly) opt.thread_only = 1;
+
             if (option === "renew"){
                 opt.pn = 1;
                 opt.renew = true;
@@ -70,7 +97,7 @@ MyPage {
             onClicked: internal.getlist("next");
         }
         section {
-            property: "reply_time";
+            property: "time_shaft"; //k "reply_time";
             delegate: sectionDelegate;
         }
 

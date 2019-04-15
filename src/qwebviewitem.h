@@ -10,6 +10,8 @@
 #include <QtWebKit/QWebView>
 #include <QtWebKit/QWebFrame>
 
+#include "nl_std.h"
+
 class FlickCharm;
 
 class WebPage : public QWebPage
@@ -121,6 +123,10 @@ public:
     Q_INVOKABLE void lockMoving();
     Q_INVOKABLE void unlockMoving();
     Q_INVOKABLE void abortDownload();
+
+#ifdef _NL_SYMBIAN3_BUILD
+    Q_INVOKABLE QVariant evaluateJavaScript(const QString& scriptSource);
+#endif
 
 signals:
     void urlChanged();

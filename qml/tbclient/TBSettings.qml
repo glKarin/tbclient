@@ -93,4 +93,16 @@ QtObject {
 
     property bool remindAtme: utility.getValue("remind/atme", true);
     onRemindAtmeChanged: utility.setValue("remind/atme", remindAtme);
+
+		// lock orientation
+    property int orientation: utility.getValue("extras/orientation", 0);
+    onOrientationChanged: utility.setValue("extras/orientation", orientation);
+
+		// If true, go to webview page when login.
+    property bool wapLoginDirectly: utility.getValue("extras/wap_login_directly", false);
+    onWapLoginDirectlyChanged: utility.setValue("extras/wap_login_directly", wapLoginDirectly);
+
+		// When login success on wap web page.
+    property bool wapLoginPageShowImage: utility.getValue("extras/wap_login_page_show_image", true);
+    onWapLoginPageShowImageChanged: utility.setValue("extras/wap_login_page_show_image", wapLoginPageShowImage);
 }

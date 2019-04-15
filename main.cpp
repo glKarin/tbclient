@@ -63,7 +63,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Symbian specific
 #ifdef Q_OS_SYMBIAN
 #ifndef Q_OS_S60V5
+#ifdef _NL_SYMBIAN3_BUILD
+    QApplication::setAttribute((Qt::ApplicationAttribute)11);
+#else
     QApplication::setAttribute(Qt::AA_CaptureMultimediaKeys);
+#endif
 #endif
     QScopedPointer<QApplication> app(new SymbianApplication(argc, argv));
 #else
@@ -146,11 +150,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     // For fiddler network debugging
 #ifdef Q_WS_SIMULATOR
+#if 0
     QNetworkProxy proxy;
     proxy.setType(QNetworkProxy::HttpProxy);
     proxy.setHostName("localhost");
     proxy.setPort(8888);
     QNetworkProxy::setApplicationProxy(proxy);
+#endif
 #endif
 
     TBNetworkAccessManagerFactory factory;
@@ -186,7 +192,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #elif defined(Q_OS_HARMATTAN)
     viewer.setMainQmlFile(QLatin1String("qml/harmattan/main.qml"));
 #else
-    viewer.setMainQmlFile(QLatin1String("qml/symbian1/main.qml"));
+    viewer.setMainQmlFile(QLatin1String("qml/tbclient/main.qml"));
 #endif
     viewer.showExpanded();
 

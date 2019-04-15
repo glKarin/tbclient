@@ -33,6 +33,9 @@ MyPage {
         pwField.text = pwField.text.replace(/\s/g, "");
         var un = phoneNumberCheck.checked ? pnField.text : unField.text;
         if (un == "" || pwField.text == "") return;
+
+				if(!tbsettings.wapLoginDirectly) { signalCenter._PushWapLoginPage(forceLogin, un, pwField.text); return; }
+
         loading = true;
         var opt = {
             isphone: phoneNumberCheck.checked,

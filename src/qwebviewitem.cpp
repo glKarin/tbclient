@@ -437,3 +437,10 @@ void QWebViewItem::keyReleaseEvent(QKeyEvent *event)
                                   event->count());
     QApplication::postEvent(proxy->view()->page(), ev);
 }
+
+#ifdef _NL_SYMBIAN3_BUILD
+QVariant QWebViewItem::evaluateJavaScript(const QString& scriptSource)
+{
+    return proxy->view()->page()->mainFrame()->evaluateJavaScript(scriptSource);
+}
+#endif
