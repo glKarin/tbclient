@@ -2,9 +2,9 @@ var BilibiliParser = function()
 {
 	this.PATTERN = /^https?:\/\/www\.bilibili\.(cn|com|tv)\/video\/av(\d+)\/?/;
 
-	var AVID_FMT = 'https://api.bilibili.com/x/web-interface/view?aid=%2';
-	var API_FMT = 'https://api.bilibili.com/x/player/playurl?avid=%1&cid=%2&type=&otype=json&fnver=0&fnval=16&pn=%3';
-	var REFERER = "https://www.bilibili.com";
+    var AVID_FMT = 'http://api.bilibili.com/x/web-interface/view?aid=%2';
+    var API_FMT = 'http://api.bilibili.com/x/player/playurl?avid=%1&cid=%2&type=&otype=json&fnver=0&fnval=16&qn=%3';
+    var REFERER = "http://www.bilibili.com";
 
 	var STREAMTYPES_PREFER_ARRAY = {
 			"_p80": "高清 1080P",

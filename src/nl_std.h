@@ -3,7 +3,7 @@
 
 #include <QNetworkRequest>
 
-#define _NL_PATCH "6"
+#define _NL_PATCH "7"
 #define _NL_RELEASE "20190327"
 #define _NL_DEV "karin"
 #define _NL_VERS "harmattan"

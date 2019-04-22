@@ -171,6 +171,7 @@ MyPage {
 	ViewHeader {
 		id: viewHeader;
 		title: page.title;
+        onClicked: pageStack.push(Qt.createComponent("MainPage.qml"));
 	}
 
 	ProgressBar{

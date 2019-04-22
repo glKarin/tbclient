@@ -2,8 +2,6 @@ import QtQuick 1.1
 import com.nokia.meego 1.1
 import "Component"
 import "Silica"
-import "Dialog"
-import "../js/main.js" as Script
 
 MyPage {
     id: page;

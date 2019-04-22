@@ -1,3 +1,9 @@
+tbclient (2.1.5harmattan7) unstable; urgency=low
+
+  * Fixed Bilibili video quality to 360P.
+
+ -- Karin <beyondk2000@gmail.com>  Mon, 22 Apr 2019 12:22:49 +0800
+
 tbclient (2.1.5harmattan6) unstable; urgency=low
 
   * Internal player supports to set request headers for playing Bilibili video.
